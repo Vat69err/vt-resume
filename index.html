@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vatsal Tewari — Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #070709;
+    --bg2: #0d0d12;
+    --border: #1a1820;
+    --violet: #9b7ef8;
+    --violet-dim: rgba(155,126,248,0.18);
+    --violet-ghost: #3d3270;
+    --text: #e8e4f0;
+    --muted: #7a748e;
+    --ghost: #2e2840;
+    --label: #4a3d78;
+    --amber: #c9933c;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 1.8rem;
+    overflow-y: auto;
+    background: var(--bg);
+    z-index: 10;
+  }
+
+  .sidebar-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
+  }
+
+  .sidebar-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 2.5rem;
+  }
+
+  .nav-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ghost);
+    margin-bottom: 0.8rem;
+    padding-left: 0.2rem;
+  }
+
+  .nav-links {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .nav-links a {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.45rem 0.5rem;
+    border-left: 1px solid transparent;
+    transition: all 0.2s;
+    margin-bottom: 0.05rem;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--violet);
+    border-left-color: var(--violet);
+    padding-left: 0.9rem;
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-line {
+    font-size: 0.65rem;
+    color: var(--label);
+    margin-bottom: 0.3rem;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  .contact-line a {
+    color: var(--violet);
+    text-decoration: none;
+  }
+
+  /* ── MAIN ── */
+  .main { overflow-y: auto; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 4rem 4rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: 'VT';
+    position: absolute;
+    right: -0.05em;
+    top: -0.15em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(8rem, 20vw, 18rem);
+    font-weight: 300;
+    color: #0f0d17;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-name em {
+    color: var(--violet);
+    font-style: italic;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-style: italic;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat {
+    padding: 1.5rem 1.8rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--violet);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* ── VISION STRIP ── */
+  .vision-strip {
+    padding: 4rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .vision-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 1.5rem;
+  }
+
+  .vision-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text);
+    max-width: 680px;
+  }
+
+  .vision-text em { color: var(--violet); font-style: italic; }
+
+  .vision-body {
+    margin-top: 1.8rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.8;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    background: var(--bg2);
+  }
+
+  .section-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ghost);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .section-title em { color: var(--violet); font-style: italic; }
+
+  .section-body { padding: 0 4rem 3rem; }
+
+  /* ── FILTER TABS ── */
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin: 0 -4rem;
+    padding: 0 4rem;
+  }
+
+  .filter-tab {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--label);
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .filter-tab:hover { color: var(--muted); }
+  .filter-tab.active { color: var(--violet); border-bottom-color: var(--violet); }
+
+  /* ── CARDS ── */
+  .cards { padding-top: 2.5rem; }
+
+  .card {
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+    display: none;
+  }
+
+  .card.visible { display: block; }
+  .card:hover { border-color: var(--violet-ghost); }
+
+  .card-header {
+    padding: 1.4rem 1.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .card-left { flex: 1; }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+
+  .card-title em { color: var(--violet); font-style: italic; }
+
+  .card-meta {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--label);
+  }
+
+  .card-toggle {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: var(--label);
+    transition: all 0.2s;
+    margin-top: 0.2rem;
+  }
+
+  .card.expanded .card-toggle {
+    border-color: var(--violet);
+    color: var(--violet);
+    transform: rotate(45deg);
+  }
+
+  .card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    border-top: 1px solid transparent;
+  }
+
+  .card.expanded .card-body {
+    max-height: 800px;
+    border-top-color: var(--border);
+  }
+
+  .card-body-inner {
+    padding: 1.5rem 1.8rem;
+  }
+
+  .card-body ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .card-body li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(26,24,32,0.6);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .card-body li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--ghost);
+    font-size: 0.7rem;
+  }
+
+  .card-body li:last-child { border-bottom: none; }
+
+  .card-body li em { color: var(--violet); font-style: normal; }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--label);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+  }
+
+  .tag.highlight {
+    color: var(--violet);
+    border-color: rgba(155,126,248,0.3);
+  }
+
+  /* ── FIELD RESEARCH SPECIAL ── */
+  .field-card {
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+    background: var(--bg2);
+  }
+
+  .field-card-header {
+    padding: 1.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .field-location {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .field-location em { color: var(--violet); font-style: italic; }
+
+  .field-status {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid rgba(201,147,60,0.3);
+    padding: 0.3rem 0.7rem;
+    align-self: flex-start;
+  }
+
+  .field-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .field-stat {
+    padding: 1.2rem 1.8rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .field-stat:last-child { border-right: none; }
+
+  .field-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--violet);
+    line-height: 1;
+    display: block;
+  }
+
+  .field-stat-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--label);
+    display: block;
+    margin-top: 0.2rem;
+  }
+
+  .field-body {
+    padding: 1.5rem 2rem;
+  }
+
+  .field-body p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 0.8rem;
+  }
+
+  .field-body p:last-child { margin-bottom: 0; }
+
+  /* ── PUBLICATIONS ── */
+  .pub-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .pub-item:last-child { border-bottom: none; }
+
+  .pub-status {
+    flex-shrink: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    margin-top: 0.2rem;
+  }
+
+  .pub-status.accepted { color: var(--violet); border: 1px solid rgba(155,126,248,0.35); }
+  .pub-status.working { color: var(--amber); border: 1px solid rgba(201,147,60,0.3); }
+  .pub-status.submitted { color: var(--muted); border: 1px solid var(--border); }
+
+  .pub-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+  }
+
+  .pub-venue {
+    font-size: 0.75rem;
+    color: var(--label);
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .skill-group {
+    padding: 1.8rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 1rem;
+  }
+
+  .skill-list {
+    list-style: none;
+  }
+
+  .skill-list li {
+    font-size: 0.82rem;
+    color: var(--muted);
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(26,24,32,0.5);
+  }
+
+  .skill-list li:last-child { border-bottom: none; }
+
+  .skill-list li em { color: var(--violet); font-style: normal; font-size: 0.7rem; }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievement-list {
+    list-style: none;
+    padding-top: 2rem;
+  }
+
+  .achievement-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .achievement-item:last-child { border-bottom: none; }
+
+  .achievement-rank {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--violet-ghost);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 3rem;
+    text-align: right;
+  }
+
+  .achievement-rank.top { color: var(--violet); }
+
+  .achievement-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-top: 0.3rem;
+  }
+
+  .achievement-text strong { color: var(--text); font-weight: 400; }
+
+  /* ── CONFERENCES ── */
+  .conf-item {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .conf-item:last-child { border-bottom: none; }
+
+  .conf-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 0.2rem;
+  }
+
+  .conf-venue {
+    font-size: 0.75rem;
+    color: var(--label);
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  .conf-year {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ghost);
+    flex-shrink: 0;
+    padding-top: 0.3rem;
+  }
+
+  .conf-year.upcoming { color: var(--amber); }
+
+  /* ── QUOTE DIVIDER ── */
+  .quote-divider {
+    padding: 3.5rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .quote-divider blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--label);
+    line-height: 1.8;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; }
+
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+    }
+
+    .sidebar-footer { display: none; }
+
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+
+    .hero::before { font-size: 8rem; right: -0.1em; top: -0.1em; }
+
+    .section-header { padding: 1.2rem 1.5rem; }
+    .section-body { padding: 0 1.5rem 2rem; }
+    .filter-tabs { margin: 0 -1.5rem; padding: 0 1.5rem; }
+    .vision-strip { padding: 3rem 1.5rem; }
+    .quote-divider { padding: 2.5rem 1.5rem; }
+
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag, .hero-name, .hero-tagline, .stats-row {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag { animation-delay: 0.05s; }
+  .hero-name { animation-delay: 0.12s; }
+  .hero-tagline { animation-delay: 0.2s; }
+  .stats-row { animation-delay: 0.3s; }
+
+  /* Scroll-reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-name">Vatsal<br>Tewari</div>
+    <div class="sidebar-role">Sociologist · Researcher</div>
+
+    <div class="nav-label">Navigate</div>
+    <ul class="nav-links">
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#field">Field Research</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#conferences">Conferences</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#skills">Skills</a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="contact-line">New Delhi</div>
+      <div class="contact-line"><a href="mailto:vatsal0147@gmail.com">vatsal0147@gmail.com</a></div>
+      <div class="contact-line"><a href="tel:+918360178759">+91 836 017 8759</a></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">MA Sociology · JNU · AIR 1, UGC NET 2024</div>
+      <h1 class="hero-name">Vatsal<br><em>Tewari</em></h1>
+      <p class="hero-tagline">Sociologist working at the intersection of digital technology, gender, governance, and everyday life. Believes knowledge must live in the world.</p>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-number" data-count="99.99">0</span>
+          <span class="stat-label">Percentile · NET 2024</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="65" data-suffix="+">0</span>
+          <span class="stat-label">Field Interviews</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="15">0</span>
+          <span class="stat-label">Focus Group Discussions</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="10" data-prefix="₹" data-suffix="L">0</span>
+          <span class="stat-label">CSR Funding Secured</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="400">0</span>
+          <span class="stat-label">Survey Respondents (n)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISION -->
+    <section class="vision-strip" id="vision">
+      <div class="vision-label">00: Long-term Vision</div>
+      <div class="vision-text reveal">
+        To <em>dehyphenate</em> the academic<br>and the practitioner.
+      </div>
+      <div class="vision-body reveal">
+        <p>The split between those who study the world and those who act in it has produced institutions that optimize for paper outcomes — publications, metrics, awards — while the problems they ostensibly address persist or deepen.</p>
+        <p>The goal is not to abandon rigour, but to make it answerable to actual human lives. Research that is empathetic rather than extractive. Compassionate rather than performative. Focused on what changes rather than what can be measured.</p>
+        <p>This is why NRS exists. It is why this work begins at the margins of institutions — in SHGs in rural Punjab, in the alleys of Udaipur, in the border landscapes of Amritsar — rather than in conference rooms.</p>
+      </div>
+    </section>
+
+    <!-- FIELD RESEARCH -->
+    <section class="section" id="field">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title">Field <em>Research</em></h2>
+      </div>
+      <div class="section-body">
+        <div style="padding-top: 2.5rem;">
+
+          <!-- Udaipur -->
+          <div class="field-card reveal">
+            <div class="field-card-header">
+              <div>
+                <div class="field-location"><em>Udaipur</em>, Rajasthan</div>
+                <div style="font-family:'Syne',sans-serif;font-size:0.62rem;letter-spacing:0.1em;color:var(--label);margin-top:0.4rem;">Women Micro-entrepreneurs · SHGs · Digital Technology Adoption</div>
+              </div>
+              <div class="field-status">Completed · 8 months</div>
+            </div>
+            <div class="field-stats-grid">
+              <div class="field-stat">
+                <span class="field-stat-num">50+</span>
+                <span class="field-stat-label">In-depth Interviews</span>
+              </div>
+              <div class="field-stat">
+                <span class="field-stat-num">~60'</span>
+                <span class="field-stat-label">Avg. Interview Length</span>
+              </div>
+              <div class="field-stat">
+                <span class="field-stat-num">15</span>
+                <span class="field-stat-label">Focus Group Discussions</span>
+              </div>
+              <div class="field-stat">
+                <span class="field-stat-num">~90'</span>
+                <span class="field-stat-label">Avg. FGD Length</span>
+              </div>
+            </div>
+            <div class="field-body">
+              <p>Conducted sustained multi-sited ethnographic fieldwork across Self-Help Groups in the Udaipur zone — among the most intensive qualitative datasets in the project. Moved between observation, formal interviewing, and informal presence to build longitudinal relationships with respondents.</p>
+              <p>Qualitative data analysis (QDA) was conducted through a deliberate hybrid methodology: API-assisted rapid first-pass coding for thematic identification across the full corpus, meshed with long, unhurried manual re-immersion in the data — reading slowly, sitting with contradictions, following threads the algorithm surfaces but cannot interpret. The two registers inform each other rather than replace one another.</p>
+              <p>The data feeds directly into the RCT running parallel to the ethnography, producing a texture the trial alone cannot capture.</p>
+            </div>
+          </div>
+
+          <!-- Gorakhpur -->
+          <div class="field-card reveal" style="margin-top:1rem;">
+            <div class="field-card-header">
+              <div>
+                <div class="field-location"><em>Gorakhpur</em>, Uttar Pradesh</div>
+                <div style="font-family:'Syne',sans-serif;font-size:0.62rem;letter-spacing:0.1em;color:var(--label);margin-top:0.4rem;">Rural Microentrepreneurship · Digital Economies · Social Networks</div>
+              </div>
+              <div class="field-status" style="color:var(--violet);border-color:rgba(155,126,248,0.3);">Ongoing</div>
+            </div>
+            <div class="field-body" style="border-top: 1px solid var(--border);">
+              <p>Active fieldwork ongoing. The site extends the comparative scope of the digital empowerment research to a distinct ecological and socio-economic context — tracking how access, aspiration, and structural constraint differ across geographies that policy often treats as uniform.</p>
+              <p>Work here is deliberately slower: establishing rapport, mapping the informal social infrastructure of SHGs before asking questions, and letting the field shape the questions rather than the other way around.</p>
+            </div>
+          </div>
+
+          <!-- Amritsar Border -->
+          <div class="field-card reveal" style="margin-top:1rem;">
+            <div class="field-card-header">
+              <div>
+                <div class="field-location"><em>Amritsar</em> Border</div>
+                <div style="font-family:'Syne',sans-serif;font-size:0.62rem;letter-spacing:0.1em;color:var(--label);margin-top:0.4rem;">Digital Surveillance · Emotional Geographies · Militarized Zones</div>
+              </div>
+              <div class="field-status" style="color:var(--violet);border-color:rgba(155,126,248,0.3);">Ongoing</div>
+            </div>
+            <div class="field-body" style="border-top: 1px solid var(--border);">
+              <p>Ethnographic fieldwork and interviews examining how intensified digital surveillance reshapes emotional lives, everyday trust, and lived anxieties in border-adjacent communities. Affiliated with the Border Criminologies Network, Faculty of Law, University of Oxford.</p>
+              <p>Working paper under preparation for presentation at the University of Cambridge Border Criminologies Annual Workshop (September 2025).</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2 class="section-title">Professional <em>Experience</em></h2>
+      </div>
+      <div class="section-body">
+
+        <div class="filter-tabs" style="margin-top:1.5rem;">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="research">Research</button>
+          <button class="filter-tab" data-filter="policy">Policy</button>
+          <button class="filter-tab" data-filter="academic">Academic</button>
+        </div>
+
+        <div class="cards">
+
+          <div class="card visible reveal" data-type="research">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Research Associate <em>→ Promoted from Intern</em></div>
+                <div class="card-meta">Indian School of Business (ISB) · Feb 2025 – Present · With Prof. LK Hans, Prof. Winnie Jiang (INSEAD), Prof. Annie Zhao Ding (UC Irvine)</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Project: <em>"Digital Empowerment of Women Micro-entrepreneurs in Rajasthan"</em></li>
+                  <li>Conducted and coded 50+ in-depth qualitative interviews (~60 min avg) with women micro-entrepreneurs on SHG dynamics and digital technology adoption</li>
+                  <li>Led a field experiment across 2 districts and 4 blocks, coordinating 30 NGO officials to evaluate program impact</li>
+                  <li>Quantitative analysis of social network data from SHGs using <em>Stata and R</em></li>
+                  <li>Proposed and secured approval for a multi-sited ethnographic study running parallel to the RCT — generating granular, context-rich data the trial alone cannot produce</li>
+                  <li>Hybrid QDA methodology: API-assisted rapid coding + sustained manual immersion in data</li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag highlight">Ethnography</span>
+                  <span class="tag highlight">RCT</span>
+                  <span class="tag">Stata · R</span>
+                  <span class="tag">SHGs</span>
+                  <span class="tag">Gender</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card visible reveal" data-type="policy">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Research Intern · <em>MP Pradyut Bordoloi</em> (Nagaon, Assam)</div>
+                <div class="card-meta">Parliament of India · 2025</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Authored a policy research paper on the <em>digital marginalization of India's Northeast</em> — analyzing infrastructure gaps, governance challenges, and lived experiences</li>
+                  <li>Paper currently under submission</li>
+                  <li>Drafted research briefs on regional development policy and technology access</li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag highlight">Policy Research</span>
+                  <span class="tag">Northeast India</span>
+                  <span class="tag">Digital Divide</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card visible reveal" data-type="policy">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Research Intern – <em>Budget Session</em> · Lok Sabha</div>
+                <div class="card-meta">Parliament of India · 2025</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Drafted policy briefs and research notes on key legislative issues for parliamentary debate</li>
+                  <li>Analyzed budget proposals for socio-economic implications</li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag">Parliamentary Research</span>
+                  <span class="tag">Budget Analysis</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card visible reveal" data-type="academic">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Teaching Intern · <em>Prof. Sandeep Dikshit</em></div>
+                <div class="card-meta">O.P. Jindal Global University · 2025 · Former Member of Parliament</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Assisted in designing and delivering course content on human development and political sociology</li>
+                  <li>Conducted tutorials, mentored students, co-facilitated classroom discussions</li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag">Teaching</span>
+                  <span class="tag">Political Sociology</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="quote-divider">
+      <blockquote>"Between what is said and not meant and what is meant and not said, much of knowledge is lost."</blockquote>
+    </div>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Research & <em>Leadership</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="cards" style="padding-top:2rem;">
+
+          <div class="card visible reveal">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Founder · <em>Network for Research with Sociality (NRS)</em></div>
+                <div class="card-meta">JNU · 2024 – Present · Anti-disciplinary Research Network</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Founded NRS in response to a structural gap: social science researchers at JNU and comparable universities lack access to state-of-the-art methods training, field infrastructure, peer review, and institutional funding pathways</li>
+                  <li>NRS is explicitly <em>anti-disciplinary</em> — organized around problems rather than departments, non-hierarchical by design, with no gatekeepers</li>
+                  <li>Leading and incubating multiple active research projects under the NRS umbrella across sociology, political science, digital studies, and feminist theory</li>
+                  <li>Providing structured mentorship to multiple JNU students; guiding them from research design through fieldwork through writing</li>
+                  <li>Creating and facilitating access to field visit opportunities — coordinated travel, institutional contacts, funding</li>
+                  <li>Leveraging industry partnerships and CSR mechanisms to channel funding toward independent social science research</li>
+                  <li>The long-term goal: build the infrastructure that good social science in India currently lacks — not another conference, but a <em>working network</em></li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag highlight">Institution Building</span>
+                  <span class="tag highlight">Anti-disciplinary</span>
+                  <span class="tag">Mentorship</span>
+                  <span class="tag">Funding</span>
+                  <span class="tag">Social Science</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card visible reveal">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Founder & PI · <em>JNU–IOC Digital Empowerment Initiative</em></div>
+                <div class="card-meta">2024 – Present · ₹10L CSR Funding · JNU's First CSR Project</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Conceptualized and single-handedly secured <em>₹10 lakh in CSR funding</em> from Indian Oil Corporation for a digital empowerment project targeting women micro-entrepreneurs in rural Punjab</li>
+                  <li>The first-ever CSR project in JNU's history — required navigating and convincing the university's administration and bureaucracy from scratch</li>
+                  <li>Designing training modules including podcasts to enhance digital and financial literacy</li>
+                  <li>Planning an RCT under JNU's Centre for Informal Sector Studies to rigorously evaluate impact</li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag highlight">₹10L Funded</span>
+                  <span class="tag">CSR</span>
+                  <span class="tag">Women's Empowerment</span>
+                  <span class="tag">RCT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card visible reveal">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Founder & PI · <em>JNU Political Opinions & Attitudes Survey</em></div>
+                <div class="card-meta">2024 – Present · n=400 · Longitudinal · Working Paper Published</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Independently designed and implemented the first large-scale, representative random survey of JNU students (n=400) on political attitudes</li>
+                  <li>Produced a working paper from the first wave; second wave planned for November 2025</li>
+                  <li>Designed as a <em>longitudinal study</em> — tracking attitudinal change over time at one of India's most politically significant university campuses</li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag highlight">Longitudinal</span>
+                  <span class="tag">Survey Design</span>
+                  <span class="tag">n=400</span>
+                  <span class="tag">Political Sociology</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card visible reveal">
+            <div class="card-header">
+              <div class="card-left">
+                <div class="card-title">Founder · <em>MA Aspiring Researcher Mentorship Program</em></div>
+                <div class="card-meta">JNU · 2024 – Present · Personally Funded</div>
+              </div>
+              <div class="card-toggle">+</div>
+            </div>
+            <div class="card-body">
+              <div class="card-body-inner">
+                <ul>
+                  <li>Established a mentorship program equipping MA peers with state-of-the-art research skills, focusing on quantitative sociology</li>
+                  <li>Personally funds <em>three aspiring researchers with ₹5,000/month</em> each</li>
+                  <li>Sponsored full travel, accommodation, and expenses for two colleagues to present at the <em>University of Cambridge</em> and network with senior scholars</li>
+                </ul>
+                <div class="card-tags">
+                  <span class="tag highlight">Personally Funded</span>
+                  <span class="tag">Cambridge</span>
+                  <span class="tag">Capacity Building</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section class="section" id="publications">
+      <div class="section-header">
+        <span class="section-number">04</span>
+        <h2 class="section-title"><em>Publications</em> & Papers</h2>
+      </div>
+      <div class="section-body">
+        <div style="padding-top:2rem;">
+
+          <div class="pub-item reveal">
+            <span class="pub-status accepted">Accepted</span>
+            <div>
+              <div class="pub-title">#Blessed Profits – The Digital Hindu Spirit of Capitalism</div>
+              <div class="pub-venue">Stan Rzecy · Faculty of Sociology, University of Warsaw · Peer-reviewed</div>
+            </div>
+          </div>
+
+          <div class="pub-item reveal">
+            <span class="pub-status working">Working Paper</span>
+            <div>
+              <div class="pub-title">Emotional Geographies and Surveillance at the Amritsar Border</div>
+              <div class="pub-venue">Forthcoming · Cambridge Border Criminologies Workshop, September 2025</div>
+            </div>
+          </div>
+
+          <div class="pub-item reveal">
+            <span class="pub-status submitted">Under Submission</span>
+            <div>
+              <div class="pub-title">Digital Marginalization in India's Northeast: Governance, Infrastructure, and Lived Experience</div>
+              <div class="pub-venue">Co-authored with MP Pradyut Bordoloi's Office</div>
+            </div>
+          </div>
+
+          <div class="pub-item reveal">
+            <span class="pub-status working">Working Paper</span>
+            <div>
+              <div class="pub-title">The Digital Public Sphere: Impact of Algorithmic Curation on Political Opinions of Young Indians</div>
+              <div class="pub-venue">JNU Political Opinions & Attitudes Survey · Wave 1</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONFERENCES -->
+    <section class="section" id="conferences">
+      <div class="section-header">
+        <span class="section-number">05</span>
+        <h2 class="section-title">Conference <em>Presentations</em></h2>
+      </div>
+      <div class="section-body">
+        <div style="padding-top:2rem;">
+
+          <div class="conf-item reveal">
+            <div>
+              <div class="conf-name">Border Criminologies Annual Workshop</div>
+              <div class="conf-venue">University of Cambridge · "Emotional Geographies and Surveillance at the Amritsar Border"</div>
+            </div>
+            <div class="conf-year upcoming">Sept 2025</div>
+          </div>
+
+          <div class="conf-item reveal">
+            <div>
+              <div class="conf-name">World Congress of Sociology</div>
+              <div class="conf-venue">International Sociological Association · Morocco</div>
+            </div>
+            <div class="conf-year">2025</div>
+          </div>
+
+          <div class="conf-item reveal">
+            <div>
+              <div class="conf-name">Trans-Disciplinary Conference <span style="color:var(--violet);font-size:0.75rem;margin-left:0.5rem;">Best Paper Award</span></div>
+              <div class="conf-venue">Amity Law School</div>
+            </div>
+            <div class="conf-year">2024</div>
+          </div>
+
+          <div class="conf-item reveal">
+            <div>
+              <div class="conf-name">ISA Conference on Population & Development</div>
+              <div class="conf-venue">International Sociological Association · Lucknow</div>
+            </div>
+            <div class="conf-year">2024</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section" id="achievements">
+      <div class="section-header">
+        <span class="section-number">06</span>
+        <h2 class="section-title">Academic <em>Achievements</em></h2>
+      </div>
+      <div class="section-body">
+        <ul class="achievement-list">
+
+          <li class="achievement-item reveal">
+            <div class="achievement-rank top">1</div>
+            <div class="achievement-text"><strong>All India Rank 1</strong> — UGC NET June 2024 Sociology. 99.99th percentile. 24,745 candidates.</div>
+          </li>
+
+          <li class="achievement-item reveal">
+            <div class="achievement-rank top">1</div>
+            <div class="achievement-text"><strong>Highest Grade in Class</strong> — MA Dissertation at JNU. Paper accepted for publication in Stan Rzecy (University of Warsaw).</div>
+          </li>
+
+          <li class="achievement-item reveal">
+            <div class="achievement-rank">2</div>
+            <div class="achievement-text"><strong>All India Rank 2</strong> — CUET PG Sociology Entrance Exam 2023.</div>
+          </li>
+
+          <li class="achievement-item reveal">
+            <div class="achievement-rank">5</div>
+            <div class="achievement-text"><strong>All India Rank 5</strong> — JNU MA Sociology Entrance Exam 2023.</div>
+          </li>
+
+          <li class="achievement-item reveal">
+            <div class="achievement-rank" style="font-size:1rem;padding-top:0.4rem;">↑</div>
+            <div class="achievement-text"><strong>UPSC Civil Services Prelims 2023</strong> — Cleared in first attempt at age 21. Top 2.8% of applicants.</div>
+          </li>
+
+          <li class="achievement-item reveal">
+            <div class="achievement-rank" style="font-size:1rem;padding-top:0.4rem;">☆</div>
+            <div class="achievement-text"><strong>Joint Research Fellowship</strong> — Government of India, 2024.</div>
+          </li>
+
+          <li class="achievement-item reveal">
+            <div class="achievement-rank" style="font-size:1rem;padding-top:0.4rem;">◈</div>
+            <div class="achievement-text"><strong>Member, Border Criminologies Network</strong> — Faculty of Law, University of Oxford, 2024–Present.</div>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="section-header">
+        <span class="section-number">07</span>
+        <h2 class="section-title">Technical <em>Skills</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="skills-grid reveal">
+
+          <div class="skill-group">
+            <div class="skill-group-title">Statistical Software</div>
+            <ul class="skill-list">
+              <li>Stata</li>
+              <li>R</li>
+              <li>SPSS</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-title">Qualitative Analysis</div>
+            <ul class="skill-list">
+              <li>Atlas.ti</li>
+              <li>NVivo</li>
+              <li>QualCoder</li>
+              <li>API-assisted QDA <em>hybrid</em></li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-title">Research Methods</div>
+            <ul class="skill-list">
+              <li>Randomized Controlled Trials</li>
+              <li>Ethnography</li>
+              <li>Survey Design</li>
+              <li>Focus Group Discussions</li>
+              <li>In-depth Interviewing</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-title">Data & Tools</div>
+            <ul class="skill-list">
+              <li>Advanced MS Excel</li>
+              <li>Basic Python</li>
+              <li>Social Network Analysis</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="quote-divider" style="border-top:1px solid var(--border);">
+      <blockquote>"No person is an island, entire of itself."</blockquote>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // ── COUNTER ANIMATION ──
+  function animateCounters() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = parseFloat(el.dataset.count);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const isDecimal = target % 1 !== 0;
+      const duration = 1200;
+      const start = performance.now();
+
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = target * eased;
+        el.textContent = prefix + (isDecimal ? current.toFixed(2) : Math.floor(current)) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = prefix + (isDecimal ? target.toFixed(2) : target) + suffix;
+      }
+
+      requestAnimationFrame(update);
+    });
+  }
+
+  // Run counters after a short delay
+  setTimeout(animateCounters, 400);
+
+  // ── CARD EXPAND/COLLAPSE ──
+  document.querySelectorAll('.card-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const card = header.closest('.card');
+      card.classList.toggle('expanded');
+    });
+  });
+
+  // ── FILTER TABS ──
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const filter = tab.dataset.filter;
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      document.querySelectorAll('.card').forEach(card => {
+        if (filter === 'all' || card.dataset.type === filter) {
+          card.classList.add('visible');
+        } else {
+          card.classList.remove('visible');
+          card.classList.remove('expanded');
+        }
+      });
+    });
+  });
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── ACTIVE NAV ──
+  const sections = document.querySelectorAll('section[id], .vision-strip[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>
